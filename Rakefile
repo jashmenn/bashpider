@@ -22,16 +22,17 @@ namespace :data do
     sh "cd #{DMOZ_DIR} && gunzip #{DMOZ_FILE_GZ}"
   end
 
-  desc "extract the urls from the dmoz file"
-  task :extract_urls do
+  file URLS_FILE => [DMOZ_FILE] do
     sh %Q{cat #{DMOZ_FILE}  | grep http | grep r:resource | grep -o '<link r:resource=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^<link r:resource=["'"'"']//' -e 's/["'"'"']$//' > #{URLS_FILE}}
   end
+
+  desc "create the urls file"
+  task :get_urls => [URLS_FILE]
 
   desc "extract random urls from the url file"
   task :extract_random_urls do
     sh "ruby ./bin/random-lines.rb #{URLS_FILE} 300 > #{RND_URLS_FILE}"
   end
-
 
 end
 

@@ -3,30 +3,17 @@ bashpider
 
 a spider using nothing but standard unix tools (+ ruby glue)
 
+    git clone whatever
+    cd bashpider
+    rake data:get_urls # will take a while 
+    rake crawl:restart # this will run a crawl
 
-results:
+If you want to monitor the downloads per second, in another window type the following:
 
-wgets pps
-10 3.949
-25 8.919
-50 15.84
-75 19.72
-100 25.83
-125 26.15
-150 27.3 
-175 22.34
-200 6.076
+    rake crawl:watch
 
+When you feel you've gathered enough data, CTRL-C to kill both windows and then type:
 
-xargs thread pool
+    rake results:process 
 
-wget caches dns - each process is assigned one domain
-
-gethostbyaddr is synchronized 
-so what happens when you start this many is you have timeouts resolving dns
-we dont really care
-
-maybe you could get more per second if you werent as polite
-
-spotlight mdworker - hogging cpu to keep up with all the new files
-
+See: post

@@ -1,13 +1,17 @@
 #!/bin/bash
 # a basic crawler in bash
-# usage: crawl.sh urlfile.txt 
+# usage: crawl.sh urlfile.txt <numprocs>
 URLS_FILE=$1
 BANDWIDTH=2300
-CRAWLERS=200
-RATE_LIMIT=$(($BANDWIDTH/$CRAWLERS))
+CRAWLERS=$2
 
 mkdir -p data/pages
 
+# add this in below if you want to limit the rate of an individual crawler,
+# though I would suggest you oversubscribe otherwise some crawlers will be
+# starved while waiting for slow neighbors.
+#
+# RATE_LIMIT=$(($BANDWIDTH/$CRAWLERS))
 # --limit-rate=${RATE_LIMIT}k  \
 
 WGET_CMD="wget \
