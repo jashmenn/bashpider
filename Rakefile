@@ -15,7 +15,7 @@ namespace :data do
   end
 
   file DMOZ_FILE_GZ => [DMOZ_DIR] do
-    sh "curl -0 http://rdf.dmoz.org/rdf/content.rdf.u8.gz > #{DMOZ_FILE}"
+    sh "curl -0 http://rdf.dmoz.org/rdf/content.rdf.u8.gz > #{DMOZ_FILE_GZ}"
   end
 
   file DMOZ_FILE => [DMOZ_FILE_GZ] do
@@ -29,8 +29,9 @@ namespace :data do
 
   desc "extract random urls from the url file"
   task :extract_random_urls do
-    sh "./bin/random-lines.sh #{URLS_FILE} 100 > #{RND_URLS_FILE}"
+    sh "ruby ./bin/random-lines.rb #{URLS_FILE} 300 > #{RND_URLS_FILE}"
   end
+
 
 end
 
@@ -50,16 +51,28 @@ namespace :crawl do
   task :run do
     sh %Q{./bin/crawl.sh #{RND_URLS_FILE} | tee -a log/crawl.log}
   end
+
+  desc "start a new crawl"
+  task :restart => ["crawl:clean", "data:extract_random_urls", "crawl:run"]
 end
 
 namespace :results do
+  desc "process results"
+  task :process => ["make_relative"]
+
   desc "make results relative"
   task "make_relative" do
+    num_crawlers = ENV["NUM_CRAWLERS"] || 10
     mkdir_p "log/results" rescue nil
     relative_file = "log/results/page-counts-#{Time.now.strftime("%Y-%m-%d-%H.%M.%S")}.csv"
-    sh "ruby bin/process-page-numbers.rb #{PAGE_COUNTS_FILE} > #{relative_file}"
+    sh "ruby bin/process-page-numbers.rb #{PAGE_COUNTS_FILE} #{num_crawler} > #{relative_file}"
+    sh "Rscript bin/results.R #{relative_file}"
   end
+
 end
+
+
+
 
 # 
 # pages <- read.csv("log/results/page-counts-2010-08-24-11.53.24.txt", head=FALSE)

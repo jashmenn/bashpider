@@ -1,8 +1,32 @@
 bashpider
 =========
 
-a spider using nothing but standard unix tools (+ a rakefile)
+a spider using nothing but standard unix tools (+ ruby glue)
 
 
+results:
 
+wgets pps
+10 3.949
+25 8.919
+50 15.84
+75 19.72
+100 25.83
+125 26.15
+150 27.3 
+175 22.34
+200 6.076
+
+
+xargs thread pool
+
+wget caches dns - each process is assigned one domain
+
+gethostbyaddr is synchronized 
+so what happens when you start this many is you have timeouts resolving dns
+we dont really care
+
+maybe you could get more per second if you werent as polite
+
+spotlight mdworker - hogging cpu to keep up with all the new files
 

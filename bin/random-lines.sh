@@ -10,3 +10,5 @@ for i in $(seq 1 $NUM_WANTED 1)
     let LINE=$((${RANDOM} % ${NUM}))
     sed -n ${LINE}p ${FILE}
   done
+
+# ls -lh data/dmoz/urls.txt | cut -d " " -f 6

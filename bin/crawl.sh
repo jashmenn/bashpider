@@ -3,19 +3,19 @@
 # usage: crawl.sh urlfile.txt 
 URLS_FILE=$1
 BANDWIDTH=2300
-CRAWLERS=100
+CRAWLERS=200
 RATE_LIMIT=$(($BANDWIDTH/$CRAWLERS))
-
 
 mkdir -p data/pages
 
+# --limit-rate=${RATE_LIMIT}k  \
+
 WGET_CMD="wget \
   --tries=5 \
-  --dns-timeout=5 \
+  --dns-timeout=30 \
   --connect-timeout=5 \
   --read-timeout=5 \
   --timestamping \
-  --limit-rate=${RATE_LIMIT}k  \
   --directory-prefix=data/pages \
   --wait=2 \
   --random-wait \
