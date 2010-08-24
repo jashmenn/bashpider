@@ -29,7 +29,7 @@ namespace :data do
 
   desc "extract random urls from the url file"
   task :extract_random_urls do
-    sh "./bin/random_lines.sh #{URLS_FILE} 10 > #{RND_URLS_FILE}"
+    sh "./bin/random-lines.sh #{URLS_FILE} 10 > #{RND_URLS_FILE}"
   end
 
 end
