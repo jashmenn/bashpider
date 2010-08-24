@@ -1,0 +1,8 @@
+bashpider
+=========
+
+a spider using nothing but standard unix tools (+ a rakefile)
+
+
+
+

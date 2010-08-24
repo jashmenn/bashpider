@@ -1,2 +1,4 @@
 data/dmoz
+data/pages
 .DS_Store
+.autosession.vim
