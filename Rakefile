@@ -19,7 +19,7 @@ namespace :data do
   end
 
   file DMOZ_FILE => [DMOZ_FILE_GZ] do
-    sh "cd #{DMOZ_DIR} && gunzip #{DMOZ_FILE_GZ}"
+    sh "cd #{DMOZ_DIR} && gunzip #{File.basename(DMOZ_FILE_GZ)}"
   end
 
   file URLS_FILE => [DMOZ_FILE] do
