@@ -31,7 +31,7 @@ namespace :data do
 
   desc "extract random urls from the url file"
   task :extract_random_urls do
-    sh "ruby ./bin/random-lines.rb #{URLS_FILE} 300 > #{RND_URLS_FILE}"
+    sh "ruby ./bin/random-lines.rb #{URLS_FILE} 100000 > #{RND_URLS_FILE}"
   end
 
 end
