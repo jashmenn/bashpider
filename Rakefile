@@ -50,7 +50,8 @@ namespace :crawl do
   end
   desc "run the crawl"
   task :run do
-    sh %Q{./bin/crawl.sh #{RND_URLS_FILE} | tee -a log/crawl.log}
+    num_crawlers = ENV["NUM_CRAWLERS"] || 10
+    sh %Q{./bin/crawl.sh #{RND_URLS_FILE} #{num_crawler} | tee -a log/crawl.log}
   end
 
   desc "start a new crawl"
@@ -63,10 +64,9 @@ namespace :results do
 
   desc "make results relative"
   task "make_relative" do
-    num_crawlers = ENV["NUM_CRAWLERS"] || 10
     mkdir_p "log/results" rescue nil
     relative_file = "log/results/page-counts-#{Time.now.strftime("%Y-%m-%d-%H.%M.%S")}.csv"
-    sh "ruby bin/process-page-numbers.rb #{PAGE_COUNTS_FILE} #{num_crawler} > #{relative_file}"
+    sh "ruby bin/process-page-numbers.rb #{PAGE_COUNTS_FILE} > #{relative_file}"
     sh "Rscript bin/results.R #{relative_file}"
   end
 
