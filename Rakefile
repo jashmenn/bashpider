@@ -52,7 +52,7 @@ namespace :crawl do
   task :run do
     num_crawlers = ENV["NUM_CRAWLERS"] || 10
     sh "mkdir -p log"
-    sh %Q{./bin/crawl.sh #{RND_URLS_FILE} #{num_crawler} | tee -a log/crawl.log}
+    sh %Q{./bin/crawl.sh #{RND_URLS_FILE} #{num_crawlers} | tee -a log/crawl.log}
   end
 
   desc "start a new crawl"
