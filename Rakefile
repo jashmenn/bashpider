@@ -69,15 +69,5 @@ namespace :results do
     relative_file = "log/results/page-counts-#{Time.now.strftime("%Y-%m-%d-%H.%M.%S")}.csv"
     sh "ruby bin/process-page-numbers.rb #{PAGE_COUNTS_FILE} > #{relative_file}"
     sh "ruby bin/find-pages-per-second.rb #{relative_file}"
-  end
 
 end
-
-
-
-
-# 
-# pages <- read.csv("log/results/page-counts-2010-08-24-11.53.24.txt", head=FALSE)
-# summary(pages$V2)
-
-
