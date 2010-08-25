@@ -41,8 +41,8 @@ PAGE_COUNTS_FILE="data/page-counts.txt"
 namespace :crawl do
   desc "clean the crawl results"
   task :clean do
-    sh "rm -rf data/pages"
-    sh "rm data/page-counts.txt"
+    sh "rm -rf data/pages" rescue nil
+    sh "rm data/page-counts.txt" rescue nil
   end
   desc "record and watch the results"
   task :watch do
@@ -50,6 +50,7 @@ namespace :crawl do
   end
   desc "run the crawl"
   task :run do
+    sh "mkdir -p log"
     sh %Q{./bin/crawl.sh #{RND_URLS_FILE} | tee -a log/crawl.log}
   end
 
