@@ -68,7 +68,7 @@ namespace :results do
     mkdir_p "log/results" rescue nil
     relative_file = "log/results/page-counts-#{Time.now.strftime("%Y-%m-%d-%H.%M.%S")}.csv"
     sh "ruby bin/process-page-numbers.rb #{PAGE_COUNTS_FILE} > #{relative_file}"
-    sh "Rscript bin/results.R #{relative_file}"
+    sh "ruby bin/find-pages-per-second.rb #{relative_file}"
   end
 
 end
